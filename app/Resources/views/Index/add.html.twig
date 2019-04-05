@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Ajouter Un Contact{% endblock %}
+
+{% block body %}
+<h1>Ajouter un nouveau contact</h1>
+<div class="container">
+	{{ form_start(form) }}
+	
+	{{ form_widget(form) }}
+	
+	<button type="submit" class="btn btn-primary">Enregister</button>
+	
+	{{ form_end(form) }}
+</div>
+{% endblock %}
