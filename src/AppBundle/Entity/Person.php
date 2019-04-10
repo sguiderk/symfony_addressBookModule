@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Person
  *
  * @ORM\Table(name="person")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PersonRepository")
+ * @UniqueEntity("email")
  */
 class Person
 {
@@ -18,6 +21,7 @@ class Person
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * 
      */
     private $id;
 
@@ -25,6 +29,8 @@ class Person
      * @var string
      *
      * @ORM\Column(name="firstName", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max = 50)
      */
     private $firstName;
 
@@ -32,6 +38,8 @@ class Person
      * @var string
      *
      * @ORM\Column(name="lastName", type="string", length=255)
+     * @Assert\NotBlank
+     * @Assert\Length(max=50)
      */
     private $lastName;
 
@@ -39,6 +47,8 @@ class Person
      * @var string
      *
      * @ORM\Column(name="address", type="string", length=255)
+     * @Assert\Length(min=10,max=255)
+     * 
      */
     private $address;
 
@@ -46,6 +56,8 @@ class Person
      * @var string
      *
      * @ORM\Column(name="zip", type="string", length=255)
+     * @Assert\Length(min=5,max=5)
+     * @Assert\Type("integer")
      */
     private $zip;
 
@@ -53,6 +65,7 @@ class Person
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
+     * @Assert\NotBlank
      */
     private $city;
 
@@ -60,6 +73,7 @@ class Person
      * @var string
      *
      * @ORM\Column(name="country", type="string", length=255)
+     * @Assert\Country
      */
     private $country;
 
@@ -67,6 +81,7 @@ class Person
      * @var string
      *
      * @ORM\Column(name="phoneNumber", type="string", length=255)
+     * @Assert\Regex(pattern="/^[+]*[0-9]*$/",message="Not a valid phone number !")
      */
     private $phoneNumber;
 
@@ -74,6 +89,7 @@ class Person
      * @var \DateTime
      *
      * @ORM\Column(name="birthday", type="datetime")
+     * @Assert\Date
      */
     private $birthday;
 
@@ -81,13 +97,20 @@ class Person
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\Email
      */
     private $email;
 
     /**
      * @var string
-     *
-     * @ORM\Column(name="picture", type="string", length=255)
+     * 
+     * @ORM\Column(name="picture", type="string", length=255, nullable=true)
+     * @Assert\Image(
+     *     minWidth = 50,
+     *     maxWidth = 900,
+     *     minHeight = 50,
+     *     maxHeight = 600
+     * )
      */
     private $picture;
 
@@ -150,6 +173,14 @@ class Person
         return $this->lastName;
     }
 
+    /**
+     * get fullname
+     * @return string
+     */
+    public function getFullname()
+    {
+        return $this->firstName." ".$this->lastName;
+    }
     /**
      * Set address
      *

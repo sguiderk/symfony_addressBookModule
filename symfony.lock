@@ -1,4 +1,10 @@
 {
+    "knplabs/knp-components": {
+        "version": "v1.3.10"
+    },
+    "knplabs/knp-paginator-bundle": {
+        "version": "v3.0.0"
+    },
     "symfony/contracts": {
         "version": "v1.0.2"
     },

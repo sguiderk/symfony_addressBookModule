@@ -1,0 +1,28 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Edit Contact : {{ contact.fullname }} {% endblock %}
+
+{% block body %}
+
+<div class="container mt-3">
+
+<div class="row mb-3">
+	<div class="col-2">
+		{% if contact.picture %}
+		<img src="{{ asset('contact_pictures/' ~ contact.picture) }}" style="max-height: 128px;max-width: 128px;" />
+		{% endif %}
+	</div>
+	<div class="col-10 align-items-top">
+		<h1>Edit Contact : {{ contact.fullname }}</h1>
+	</div>
+</div>
+    
+	{{ form_start(form) }}
+	
+	{{ form_widget(form) }}
+	
+	<button type="submit" class="btn btn-primary">Save</button>
+
+	{{ form_end(form) }}
+</div>
+{% endblock %}
