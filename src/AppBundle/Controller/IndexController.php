@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use AppBundle\Services\FileUploader;
+use AppBundle\Repository\PersonRepository;
 
 class IndexController extends Controller
 {
@@ -18,10 +19,20 @@ class IndexController extends Controller
      * 
      * @Route("/",name="contact_list")
      */
-    public function indexAction()
+    public function indexAction(ObjectManager $manager,Request $request)
     {
+        $repoPerson = $manager->getRepository("AppBundle:Person");
+        $query = $repoPerson->getPaginationQuery();
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query, /* query NOT result */
+            $request->query->getInt('page', 1), /*page number*/
+            3 /*limit per page*/
+            );
+        
         return $this->render('index/index.html.twig', array(
-            // ...
+            "pagination"=>$pagination,
+            "url_pictures"=>$this->getParameter("pictures_folder")
         ));
     }
 
