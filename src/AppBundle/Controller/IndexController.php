@@ -68,9 +68,21 @@ class IndexController extends Controller
             'form'=> $form->createView()
         ));
     }
+    
+    /**
+     * @Route("/delete/{id}",name="delete_contact")
+     */
+    public function deleteAction(Person $contact,ObjectManager $manager)
+    {
+        $manager->remove($contact);
+        $manager->flush();
+        
+        $this->addFlash("success", "Contact <strong>{$contact->getFullname()}</strong> is removed");
+        return $this->redirectToRoute("contact_list");
+    }
 
     /**
-     * @Route("/edit/{id}")
+     * @Route("/edit/{id}",name="edit_contact")
      * @param ObjectManager $manager
      * @param Person $person
      */
