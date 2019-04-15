@@ -3,6 +3,7 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Constraints\Length;
+use AppBundle\Repository\PersonRepository;
 
 class IndexControllerTest extends WebTestCase
 {
@@ -25,6 +26,8 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
         
         $crawler = $client->request("GET", "/new");
+        
+        $this->assertEquals(200, $client->getResponse()->getStatusCode());
         
         $form = $crawler->selectButton("submit_add")->form();
         
@@ -65,10 +68,7 @@ class IndexControllerTest extends WebTestCase
         
     }
     
-    public function testDelete()
-    {
-        
-    }
+   
     
     private function getContactTestExemple()
     {
@@ -95,5 +95,15 @@ class IndexControllerTest extends WebTestCase
             
             "appbundle_person[email]"=> md5(mt_rand(110,10000))."@gmail.com"
         ];
+    }
+    
+    
+    public function testDelete()
+    {
+                
+        $client = static::createClient();
+        $crawler =  $client->request("GET", "/delete/1");
+        $this->assertTrue($client->getResponse()->isRedirect("/"));
+        
     }
 }
