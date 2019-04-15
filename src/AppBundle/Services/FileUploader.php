@@ -18,8 +18,7 @@ class FileUploader
         try {
             $file->move($this->directory,$filename);
             return $filename;
-        }catch(\Exception $e)
-        {
+        } catch(\Exception $e) {
             //add exception into the log file 
             return false;
         }

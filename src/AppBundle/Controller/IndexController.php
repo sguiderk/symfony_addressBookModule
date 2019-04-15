@@ -19,15 +19,14 @@ class IndexController extends Controller
      * 
      * @Route("/",name="contact_list")
      */
-    public function indexAction(ObjectManager $manager,Request $request)
+    public function indexAction(ObjectManager $manager, Request $request)
     {
         $repoPerson = $manager->getRepository("AppBundle:Person");
         $query = $repoPerson->getPaginationQuery();
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
-            $query, /* query NOT result */
-            $request->query->getInt('page', 1), /*page number*/
-            3 /*limit per page*/
+            $query,
+            $request->query->getInt('page', 1)
             );
         
         return $this->render('index/index.html.twig', array(
@@ -39,26 +38,25 @@ class IndexController extends Controller
     /**
      * @Route("/new",name="contact_new")
      */
-    public function addAction(ObjectManager $manager,Request $request,FileUploader $uploader)
+    public function addAction(ObjectManager $manager, Request $request, FileUploader $uploader)
     {
         $person = new Person();
         $form = $this->createForm(PersonType::class,$person);
         $form->handleRequest($request);
         
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             //picture file process
-            if($person->getPicture())
-            {
+            if ($person->getPicture()) {
                $filename =  $uploader->uploadfile($person->getPicture());
-               if($filename) $person->setPicture($filename);
-               else
+               if ($filename) {
+                   $person->setPicture($filename);
+               } else {
                    $this->addFlash("warning", "Oops ! An error has accured while saving the picture.");
+               }
             }
-            
+   
             $manager->persist($person);
-            $manager->flush();
-            
+            $manager->flush();         
             $this->addFlash("success", "New contact <strong>{$person->getFullname()} </strong> is saved !");
             
             return $this->redirectToRoute("contact_list",[]);
@@ -72,11 +70,10 @@ class IndexController extends Controller
     /**
      * @Route("/delete/{id}",name="delete_contact")
      */
-    public function deleteAction(Person $contact,ObjectManager $manager)
+    public function deleteAction(Person $contact, ObjectManager $manager)
     {
         $manager->remove($contact);
         $manager->flush();
-        
         $this->addFlash("success", "Contact <strong>{$contact->getFullname()}</strong> is removed");
         return $this->redirectToRoute("contact_list");
     }
@@ -86,29 +83,28 @@ class IndexController extends Controller
      * @param ObjectManager $manager
      * @param Person $person
      */
-    public function editAction(ObjectManager $manager,Person $person,Request $request,FileUploader $uploader)
+    public function editAction(ObjectManager $manager, Person $person, Request $request, FileUploader $uploader)
     {
         $form = $this->createForm(PersonType::class,$person);
         $last_picture = $person->getPicture();
         $form->handleRequest($request);
         
-        if($form->isSubmitted() && $form->isValid())
-        {
+        if ($form->isSubmitted() && $form->isValid()) {
             //picture file process
-            if($person->getPicture())
-            {
+            if($person->getPicture()) {
                 $filename =  $uploader->uploadfile($person->getPicture());
-                if($filename) $person->setPicture($filename);
-                else
+                if ($filename) {
+                    $person->setPicture($filename);
+                } 
+                else { 
                     $this->addFlash("warning", "Oops ! An error has accured while saving the picture.");
-            }else{
+                }
+                  
+            } else {
                 $person->setPicture($last_picture);
             }
-            
-            
             $manager->persist($person);
             $manager->flush();
-            
             $this->addFlash("success", "Contact <strong>{$person->getFullname()} </strong> is modified with success !");
             
             return $this->redirectToRoute("contact_list",[]);
