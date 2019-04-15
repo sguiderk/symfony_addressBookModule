@@ -16,7 +16,7 @@ use Symfony\Component\Form\Extension\Core\Type\CountryType;
 class PersonType extends AbstractType
 {
     /**
-     * {@inheritdoc}
+     * function to build form
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -42,7 +42,7 @@ class PersonType extends AbstractType
     }
     
     /**
-     * {@inheritdoc}
+     * set configuration
      */
     public function configureOptions(OptionsResolver $resolver)
     {
@@ -52,7 +52,7 @@ class PersonType extends AbstractType
     }
 
     /**
-     * {@inheritdoc}
+     * get Block prefix
      */
     public function getBlockPrefix()
     {

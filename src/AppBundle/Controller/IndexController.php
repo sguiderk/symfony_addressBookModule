@@ -90,7 +90,6 @@ class IndexController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            //picture file process
             if($person->getPicture()) {
                 $filename =  $uploader->uploadfile($person->getPicture());
                 if ($filename) {
