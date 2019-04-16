@@ -11,15 +11,15 @@ lillydoo
 
 `# install the depencies `
 
-`npm install`
+`composer update`
 
 `# run the application `
 
-`npm start `
+`php bin\console server run `
 
-Then it will open http://localhost:3000 and the application will be running.
+Then it will open http://127.0.0.1:8000 and the application will be running.
 
 ## To Run Tests
 
-`npm test`
+`vendor\bin\simple-phpunit`
 
