@@ -6,7 +6,7 @@ parameters:
     # You should uncomment this if you want to use pdo_sqlite
     pictures_folder: 'contact_pictures'
     contact_pictures: '%kernel.project_dir%/web/%pictures_folder%'
-    database_path: '%kernel.project_dir%/var/data/data.sqlite'
+    database_path: '%kernel.project_dir%/data/data.sqlite'
 
     mailer_transport: smtp
     mailer_host: 127.0.0.1
