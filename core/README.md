@@ -1,6 +1,11 @@
 lillydoo
 ========
 
+Symfony app for address book in which you can add, edit and delete entries. You should
+also have an overview of all contacts.
+
+## Screen shot of the app 
+
 ## How to install on your computer
 
 `# Clone this git repo:`
