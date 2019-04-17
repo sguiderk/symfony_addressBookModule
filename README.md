@@ -17,7 +17,7 @@ also, have an overview of all contacts.
 
 For the frontend part, I've worked with Bootstrap 4 and web pack to manage well the CSS and JS.
 
-## How to install on your computer
+## How to install on docker-compose
 
 `# Clone this git repo:`
 
@@ -25,16 +25,10 @@ For the frontend part, I've worked with Bootstrap 4 and web pack to manage well 
 
 `cd symfony_addressBookModule/`
 
-`# install the depencies `
+`docker-compose up --build`
 
-`composer update`
+Then it will open yourhost:8000 and the application will be running.
 
-`# run the application `
+## To Run on docker-compose
 
-`php bin\console server run `
-
-Then it will open http://127.0.0.1:8000 and the application will be running.
-
-## To Run Tests
-
-`vendor\bin\simple-phpunit`
+`docker-compose exec php vendor/bin/phpunit`
