@@ -3,10 +3,25 @@ namespace Tests\AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Validator\Constraints\Length;
-use AppBundle\Repository\PersonRepository;
 
 class IndexControllerTest extends WebTestCase
 {
+
+    /**
+     * @var \Doctrine\ORM\EntityManager
+     */
+    private $em;
+
+    /**
+     * {@inheritDoc}
+     */
+    public function setUp()
+    {
+        self::bootKernel();
+        $this->em = static::$kernel->getContainer()
+            ->get('doctrine')
+            ->getManager();
+    }
 
     /**
      * function to test index page
@@ -16,7 +31,6 @@ class IndexControllerTest extends WebTestCase
         $client = static::createClient();
         $crawler = $client->request("GET", "/");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
-        
         $this->assertEquals(1,$crawler->filter("p.count")->count());
         
     }
@@ -39,7 +53,7 @@ class IndexControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect("/"));
         $this->assertEquals(0,$crawler->filter(".form-error-message")->count());
-        
+
     }
 
     /**
@@ -48,7 +62,7 @@ class IndexControllerTest extends WebTestCase
     public function testEdit()
     {
         $client = static::createClient();
-        $crawler = $client->request("GET", "/edit/1");
+        $crawler = $client->request("GET", "/edit/".$this->getLastInsertedId());
         
         if (!$client->getResponse()->isNotFound()) {
             $form = $crawler->selectButton("save_contact")->form();
@@ -56,7 +70,6 @@ class IndexControllerTest extends WebTestCase
             $crawler = $client->submit($form);
             $this->assertTrue($client->getResponse()->isRedirection());
         }
-        
     }
 
     /**
@@ -65,10 +78,9 @@ class IndexControllerTest extends WebTestCase
     public function testDelete()
     {
         $client = static::createClient();
-        $crawler =  $client->request("GET", "/delete/1");
+        $crawler =  $client->request("GET", "/delete/".$this->getLastInsertedId());
         $this->assertTrue($client->getResponse()->isRedirect("/"));
     }
-
 
     /**
      * function to set data example of contact
@@ -88,6 +100,17 @@ class IndexControllerTest extends WebTestCase
             "appbundle_person[birthday][year]"=>"1988",
             "appbundle_person[email]"=> md5(mt_rand(110,10000))."@gmail.com"
         ];
+    }
+
+    /**
+     * @desc get last id inserted
+     * @return int
+     */
+    public function getLastInsertedId(){
+
+        $persons = $this->em
+            ->getRepository('AppBundle:Person')->findOneBy([], ['id' => 'desc']);
+        return  $persons->getId();
     }
 
 }

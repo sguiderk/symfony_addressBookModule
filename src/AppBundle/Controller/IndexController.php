@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use AppBundle\Services\FileUploader;
-use AppBundle\Repository\PersonRepository;
 
 class IndexController extends Controller
 {
     /**
-     * 
+     * desc index action
+     * @param ObjectManager $manager
+     * @param Request $request
+     * @return mixed
      * @Route("/",name="contact_list")
      */
     public function indexAction(ObjectManager $manager, Request $request)
@@ -24,18 +26,30 @@ class IndexController extends Controller
         $repoPerson = $manager->getRepository("AppBundle:Person");
         $query = $repoPerson->getPaginationQuery();
         $paginator  = $this->get('knp_paginator');
+
         $pagination = $paginator->paginate(
             $query,
-            $request->query->getInt('page', 1)
+            $request->query->getInt('page', 1),
+            5
             );
-        
-        return $this->render('index/index.html.twig', array(
+        $pagination->setCustomParameters(array(
+            'align' => 'center',
+            'size' => 'small',
+            'style' => 'bottom',
+        ));
+
+        return $this->render('Index/index.html.twig', array(
             "pagination"=>$pagination,
             "url_pictures"=>$this->getParameter("pictures_folder")
         ));
     }
 
     /**
+     * desc add action
+     * @param ObjectManager $manager
+     * @param Request $request
+     * @param FileUploader $uploader
+     * @return mixed
      * @Route("/new",name="contact_new")
      */
     public function addAction(ObjectManager $manager, Request $request, FileUploader $uploader)
@@ -62,12 +76,16 @@ class IndexController extends Controller
             return $this->redirectToRoute("contact_list",[]);
         }
         
-        return $this->render('index/add.html.twig', array(
+        return $this->render('Index/add.html.twig', array(
             'form'=> $form->createView()
         ));
     }
-    
+
     /**
+     * desc delete action
+     * @param Person $contact
+     * @param ObjectManager $manager
+     * @return mixed
      * @Route("/delete/{id}",name="delete_contact")
      */
     public function deleteAction(Person $contact, ObjectManager $manager)
@@ -79,9 +97,10 @@ class IndexController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}",name="edit_contact")
+     * desc edit action
      * @param ObjectManager $manager
      * @param Person $person
+     * @Route("/edit/{id}",name="edit_contact")
      */
     public function editAction(ObjectManager $manager, Person $person, Request $request, FileUploader $uploader)
     {
@@ -90,7 +109,7 @@ class IndexController extends Controller
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
-            if($person->getPicture()) {
+            if ($person->getPicture()) {
                 $filename =  $uploader->uploadfile($person->getPicture());
                 if ($filename) {
                     $person->setPicture($filename);
@@ -104,11 +123,11 @@ class IndexController extends Controller
             }
             $manager->persist($person);
             $manager->flush();
-            $this->addFlash("success", "Contact <strong>{$person->getFullname()} </strong> is modified with success !");
+            $this->addFlash("success", "Contact <strong>{$person->getFullname()} </strong> is edited with success !");
             
             return $this->redirectToRoute("contact_list",[]);
         }
-        return $this->render("index/edit.html.twig",
+        return $this->render("Index/edit.html.twig",
             [
                 'form'=> $form->createView(),
                 "contact"=> $person

@@ -3,7 +3,7 @@
 {% block title %}AppBundle:Index:index{% endblock %}
 
 {% block body %}
-<h1>Adresse Book</h1>
+<h1 class="text-center">Adresse Book</h1>
 <div class="container">
 <p class="lead count"> You have <strong>{{ pagination.getTotalItemCount }} contacts </strong> in your list </p>
     <div class="table-responsive">
@@ -28,7 +28,7 @@
         <tr>
           <th scope="row">
           	{% if contact.picture is not null %}
-          	<img src="{{ asset(url_pictures ~ "/" ~ contact.picture) }}" style="max-height: 64px;max-width: 64px;" />
+          	<img src="{{ asset(url_pictures ~ "/" ~ contact.picture) }}" class="mw-100" />
           	{% endif %}
           </th>
           <td>{{ contact.fullname | capitalize }}</td>
@@ -52,8 +52,7 @@
       </tbody>
     </table>
     </div>
-    
-    <div class="navigation">
+    <div class="navigation text-center">
         {{ knp_pagination_render(pagination) }}
     </div>
 </div>

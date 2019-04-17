@@ -9,7 +9,7 @@
 <div class="row mb-3">
 	<div class="col-2">
 		{% if contact.picture %}
-		<img src="{{ asset('contact_pictures/' ~ contact.picture) }}" style="max-height: 128px;max-width: 128px;" />
+		 <img src="{{ asset('contact_pictures/' ~ contact.picture) }}" class="mw-100" />
 		{% endif %}
 	</div>
 	<div class="col-10 align-items-top">
@@ -21,7 +21,7 @@
 	
 	{{ form_widget(form) }}
 	
-	<button type="submit" id="save_contact" class="btn btn-primary">Save</button>
+	<button type="submit" id="save_contact" class="btn btn-primary">Edit</button>
 
 	{{ form_end(form) }}
 </div>

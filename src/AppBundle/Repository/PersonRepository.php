@@ -10,10 +10,11 @@ namespace AppBundle\Repository;
  */
 class PersonRepository extends \Doctrine\ORM\EntityRepository
 {
-    
+    /**
+     * @return mixed
+     */
     public function getPaginationQuery()
     {
         return $this->createQueryBuilder("contact")->getQuery();
-        
     }
 }

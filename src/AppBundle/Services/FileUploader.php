@@ -11,7 +11,12 @@ class FileUploader
     {
         $this->directory = $directory;
     }
-    
+
+    /**
+     * @desc function to upload file to directory
+     * @param UploadedFile $file
+     * @return bool|string
+     */
     public function uploadfile(UploadedFile $file)
     {
         $filename = md5(uniqid()).'.'.$file->guessExtension();
