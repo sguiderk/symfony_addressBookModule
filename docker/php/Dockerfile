@@ -29,5 +29,3 @@ RUN chown -R www-data:www-data /var/data
 RUN chown -R www-data:www-data /var/cache
 RUN chown -R www-data:www-data /var/logs
 RUN chown -R www-data:www-data /var/sessions
-
-RUN echo "php bin/console cache:clear --env=prod"
