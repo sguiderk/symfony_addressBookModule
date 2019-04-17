@@ -27,6 +27,10 @@ For the frontend part, I've worked with Bootstrap 4 and web pack to manage well 
 
 `docker-compose up --build`
 
+`docker-compose php bin/console doctrine:schema:creat`
+
+`docker-compose chmod -R 777 var/logs`
+
 Then it will open yourhost:8000 and the application will be running.
 
 ## To Run on docker-compose
