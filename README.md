@@ -29,10 +29,23 @@ For the frontend part, I've worked with Bootstrap 4 and web pack to manage well 
 
 `docker-compose php bin/console doctrine:schema:creat`
 
-`docker-compose chmod -R 777 var/logs`
+ Please make sure that your folder var/logs has all permissions 777
+ to allow docker write on this folder ==> chmod -R 777 var/logs
 
 Then it will open yourhost:8000 and the application will be running.
 
-## To Run on docker-compose
+## To Run test on docker-compose
 
 `docker-compose exec php vendor/bin/phpunit`
+
+## techniques used for this app:
+
+• Symfony 3.4
+• Doctrine with SQLite
+• Twig
+• PHP 7.0
+
+## Bundle used for this app
+
+• Phpunit : for the unit test.
+• knp-paginator-bundle : for the pagination.
