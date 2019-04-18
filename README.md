@@ -45,9 +45,9 @@ Then it will open yourhost:8000 and the application will be running.
 * Twig
 * PHP 7.0
 
-## Bundle used for this app
+## Bundles used for this app
 
 * Phpunit : for the unit test.
 * knp-paginator-bundle : for the pagination.
 
-> if you don't want to use docker-compose open the core folder
+> if you don't want to use docker-compose feel free to open the core folder
