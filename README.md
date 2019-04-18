@@ -29,7 +29,7 @@ For the frontend part, I've worked with Bootstrap 4 and web pack to manage well 
 
 `docker-compose php bin/console doctrine:schema:creat`
 
- Please make sure that your folder var/logs has all permissions 777
+ Please make sure that your folder var/logs have all permissions 777
  to allow docker write on this folder ==> chmod -R 777 var/logs
 
 Then it will open yourhost:8000 and the application will be running.
@@ -49,3 +49,5 @@ Then it will open yourhost:8000 and the application will be running.
 
 * Phpunit : for the unit test.
 * knp-paginator-bundle : for the pagination.
+
+> if you don't want to use docker-compose open the core folder
