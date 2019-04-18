@@ -10,6 +10,10 @@
 
 `composer install`
 
+`# creat the doctrine schema `
+
+`php bin/console doctrine:schema:creat`
+
 `# run the application `
 
 `php bin\console server run `
