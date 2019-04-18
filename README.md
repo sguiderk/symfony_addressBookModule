@@ -38,14 +38,14 @@ Then it will open yourhost:8000 and the application will be running.
 
 `docker-compose exec php vendor/bin/phpunit`
 
-## techniques used for this app:
+## Techniques used for this app:
 
-• Symfony 3.4
-• Doctrine with SQLite
-• Twig
-• PHP 7.0
+* Symfony 3.4
+* Doctrine with SQLite
+* Twig
+* PHP 7.0
 
 ## Bundle used for this app
 
-• Phpunit : for the unit test.
-• knp-paginator-bundle : for the pagination.
+* Phpunit : for the unit test.
+* knp-paginator-bundle : for the pagination.
