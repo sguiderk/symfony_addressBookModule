@@ -13,7 +13,7 @@ class IndexControllerTest extends WebTestCase
     private $em;
 
     /**
-     * {@inheritDoc}
+     * set Up the test 
      */
     public function setUp()
     {
