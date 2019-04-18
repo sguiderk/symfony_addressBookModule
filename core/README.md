@@ -1,11 +1,5 @@
 ## How to install on your computer
 
-`# Clone this git repo:`
-
-`git clone https://github.com/sguiderk/symfony_addressBookModule.git`
-
-`cd symfony_addressBookModule/`
-
 `# install the depencies `
 
 `composer install`
