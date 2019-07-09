@@ -1,4 +1,4 @@
-lillydoo
+Symfony app
 ========
 
 Symfony app for address book in which you can add, edit and delete entries. You should
