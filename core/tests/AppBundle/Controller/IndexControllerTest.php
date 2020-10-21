@@ -32,7 +32,6 @@ class IndexControllerTest extends WebTestCase
         $crawler = $client->request("GET", "/");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1,$crawler->filter("p.count")->count());
-        
     }
 
     /**
@@ -53,7 +52,6 @@ class IndexControllerTest extends WebTestCase
         $crawler = $client->submit($form);
         $this->assertTrue($client->getResponse()->isRedirect("/"));
         $this->assertEquals(0,$crawler->filter(".form-error-message")->count());
-
     }
 
     /**
